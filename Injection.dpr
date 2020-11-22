@@ -62,7 +62,7 @@ ASM
 CMP [UnloadDLL],0
 JE @noUnload
 PUSH localModHWND//Module Handle of Injection.DLL
-PUSH RedirectedAPIAddr //address of CreateWindowExA;
+PUSH RedirectedAPIAddr //address of RedirectedAPI;
 PUSH FreeLibAddr//Address of FreeLibrary;
 PUSH EAX //VOLATILE REGISTER PRESERVATION SUPPORT FOR REGISTER BASED CALLS OR FASTCALL CONVENTIONS
 MOV EAX, DWORD PTR DS:[ESP+$10]//Gets Return Address from Stack
