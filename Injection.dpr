@@ -109,20 +109,15 @@ if RedirectedModHWND=0 then exit;
 localModHWND:=GetModuleHandleW(@LOCALDLLNAME[1]);
 if localModHWND=0 then Exit;
 
-
 tmp:=GetModuleHandleW(WideString('kernel32.dll'));
 if tmp=0 then Exit;
-
 
 FreeLibAddr:=Cardinal(GetProcAddress(tmp,AnsiString('FreeLibrary')));
 if FreeLibAddr=0 then Exit;
 
-
 RedirectedAPIAddr:=Cardinal(GetProcAddress(RedirectedModHWND,PAnsiChar(@RedirAPI[1])));
-if RedirectedAPIAddr= 0 then begin
+if RedirectedAPIAddr= 0 then exit;
 
-exit;
-end;
 VirtualProtect(Pointer(RedirectedAPIAddr),10,PAGE_EXECUTE_READWRITE ,tmp);
 CopyMemory(@originalBytes[0],Pointer(RedirectedAPIAddr),5);
 LongJumpCalculator(Integer(RedirectedAPIAddr),Integer(@InjectionJmpProcedure),jmpval);
